@@ -11,16 +11,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+
+  Timer? timer;
+
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    timer = Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const LoginScreen()),
       );
     });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    timer?.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,27 +42,29 @@ class SplashScreenState extends State<SplashScreen> {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Lottie.asset(
-                'lib/assets/lottie_files/splash_logo.json',
-                repeat: true,
-                width: 600,
-                height: 600,
-              ),
-              //const SizedBox(height: 20),
-              const Text(
-                'Rohit Auto Garage',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: AutofillHints.creditCardNumber
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  'lib/assets/lottie_files/splash_logo.json',
+                  repeat: true,
+                  width: 600,
+                  height: 600,
                 ),
-              ),
-              const SizedBox(height: 20),
-            ],
+                //const SizedBox(height: 20),
+                const Text(
+                  'Rohit Auto Garage',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: AutofillHints.creditCardNumber
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
